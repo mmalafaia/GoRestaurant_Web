@@ -39,24 +39,17 @@ const Dashboard: React.FC = () => {
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
     try {
-      console.log(foods);
-
-      const id = foods.length > 0 ? foods[foods.length - 1].id + 1 : 1;
-
       const { name, image, price, description } = food;
 
-      const newFood = {
-        id,
+      const { data } = await api.post('/foods', {
         name,
         image,
         price,
         description,
         available: true,
-      };
+      });
 
-      await api.post('/foods', newFood);
-
-      setFoods([newFood, ...foods]);
+      setFoods([...foods, data]);
       setModalOpen(!modalOpen);
       // TODO ADD A NEW FOOD PLATE TO THE API
     } catch (err) {
@@ -67,42 +60,31 @@ const Dashboard: React.FC = () => {
   async function handleUpdateFood(
     food: Omit<IFoodPlate, 'id' | 'available'>,
   ): Promise<void> {
-    const { id, available } = editingFood;
-    const { name, image, price, description } = food;
+    try {
+      const { data } = await api.put(`/foods/${editingFood.id}`, {
+        ...editingFood,
+        ...food,
+      });
 
-    await api.put(`/foods/${editingFood.id}`, {
-      id,
-      name,
-      image,
-      price,
-      description,
-      available,
-    });
-
-    const newFoods = foods.map(newFood => {
-      if (newFood.id === id) {
-        return {
-          id,
-          name,
-          image,
-          price,
-          description,
-          available,
-        };
-      }
-      return newFood;
-    });
-
-    setFoods([...newFoods]);
+      setFoods(
+        foods.map(newFood =>
+          newFood.id === editingFood.id ? { ...data } : newFood,
+        ),
+      );
+    } catch (error) {
+      console.log(error);
+    }
     // TODO UPDATE A FOOD PLATE ON THE API
   }
 
   async function handleDeleteFood(id: number): Promise<void> {
-    await api.delete(`/foods/${id}`);
+    try {
+      await api.delete(`/foods/${id}`);
 
-    const newFoods = foods.filter(food => food.id !== id);
-
-    setFoods([...newFoods]);
+      setFoods(foods.filter(food => food.id !== id));
+    } catch (error) {
+      console.log(error);
+    }
     // TODO DELETE A FOOD PLATE FROM THE API
   }
 

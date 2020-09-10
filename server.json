@@ -13,7 +13,7 @@
       "name": "Veggie",
       "description": "Macarrão com pimentão, ervilha e ervas finas colhidas no himalaia.",
       "price": "21.90",
-      "available": true,
+      "available": false,
       "image": "https://storage.googleapis.com/golden-wind/bootcamp-gostack/desafio-food/food2.png"
     },
     {
@@ -33,12 +33,20 @@
       "description": "Risoto bom, pode comer que engorda"
     },
     {
-      "id": 5,
-      "name": "1",
-      "image": "1",
-      "price": "1",
-      "description": "1",
-      "available": true
+      "available": false,
+      "image": "https://img.itdg.com.br/tdg/images/recipes/000/067/917/304252/304252_original.jpg?mode=crop&width=350&height=200",
+      "name": "Risoto do Cheff",
+      "price": "34,49",
+      "description": "Risoto bom, pode comer que engorda",
+      "id": 6
+    },
+    {
+      "available": true,
+      "image": "https://img.itdg.com.br/tdg/images/recipes/000/067/917/304252/304252_original.jpg?mode=crop&width=350&height=200",
+      "name": "Risoto do Cheff",
+      "price": "34,49",
+      "description": "Risoto bom, pode comer que engorda",
+      "id": 7
     }
   ]
 }
